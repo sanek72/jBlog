@@ -10,8 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import core.user.UserWork;
 import core.utils.Constants;
+import core.utils.CookieUtils;
 import core.utils.LogUtils;
+import core.utils.StringUtils;
 import core.utils.Validator;
+import core.utils.md5Utils;
 
 /**
  * Servlet implementation class LoginPageServlet
@@ -57,13 +60,22 @@ public class RgistrationServlet extends HttpServlet {
 		String password2 = request.getParameter("password2");
 		String email = request.getParameter("email");
 		
+		request.setAttribute("login", login);
+		request.setAttribute("password", password);
+		request.setAttribute("password2", password);	
+		request.setAttribute("email", email);			
+		
 		if(!Validator.loginValid(login)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Login not correctly entered!");
 			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
 			return;
 		}
 		
-		request.setAttribute("login", login);
+		if(user.isLogin(login)){
+			request.setAttribute(Constants.REGISTRATION_ERRORE, "This login already exists!");
+			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
+			return;
+		}				
 		
 		if(!Validator.passwordValid(password)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Password not entered correctly!");
@@ -76,21 +88,37 @@ public class RgistrationServlet extends HttpServlet {
 			request.getRequestDispatcher("/resourcesF/views/registration.jsp").forward(request, response);
 			return;
 		}			
-		
-		request.setAttribute("password", password);
-		request.setAttribute("password2", password);
-		
+				
 		if(!Validator.emailValid(email)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Email not entered correctly!");
 			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
 			return;
 		}	
 		
-		request.setAttribute("email", email);
+		if(user.isEmail(email)){
+			request.setAttribute(Constants.REGISTRATION_ERRORE, "This email is already in use!");
+			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
+			return;
+		}			
 		
 		
+		boolean rememberMe = Boolean.valueOf(request.getParameter("rememberMe"));		
 		
-		LogUtils.logInfo("(LoginServlet do doPost()) - !!!!YES!!!! ");
+		user.setAuth(true);
+		user.setLogin(login);
+		user.setPassword(md5Utils.md5Apache(password));
+		user.setGroup(Constants.USER_GROUP[1]);
+		user.setEmail(email);
+		user.setUserDb();
+		
+		if(rememberMe){
+			String rndpass = md5Utils.md5Apache(StringUtils.passwordGenerator());
+			user.setRandomPass(login, rndpass);
+			CookieUtils.addCookie(response, user.getLogin(), rndpass);
+		}		
+		
+		request.getRequestDispatcher("/resources/views/registrationOn.jsp").forward(request, response);						
+		LogUtils.logInfo("(LoginServlet do doPost()) - New User: " + session.getId() + ", Login: " + user.getLogin());
 		
 	}		
 	

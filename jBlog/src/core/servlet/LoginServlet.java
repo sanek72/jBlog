@@ -15,6 +15,7 @@ import core.utils.CookieUtils;
 import core.utils.LogUtils;
 import core.utils.Properies;
 import core.utils.StringUtils;
+import core.utils.md5Utils;
 
 
 @WebServlet("/login")
@@ -63,13 +64,13 @@ public class LoginServlet extends HttpServlet {
 		boolean rememberMe = Boolean.valueOf(request.getParameter("rememberMe"));
 		LogUtils.logInfo("(LoginServlet do doPost()) - " + rememberMe);
 	
-		if(user.checkLoginPassword(login, password, false)){
+		if(user.checkLoginPassword(login, md5Utils.md5Apache(password), false)){
 			user.setLogin(login);	
 			user.setAuth(true);
 			user.dataUser();
 			session.setAttribute(session.getId(), user);
 			if(rememberMe){
-				String rndpass = StringUtils.passwordGenerator();
+				String rndpass = md5Utils.md5Apache(StringUtils.passwordGenerator());
 				user.setRandomPass(login, rndpass);
 				CookieUtils.addCookie(response, user.getLogin(), rndpass);
 			}

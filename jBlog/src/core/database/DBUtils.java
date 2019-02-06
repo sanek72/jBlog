@@ -43,12 +43,12 @@ public class DBUtils {
 		
 		
 	
-    public static UserWork findUser(Connection conn, String userName) throws SQLException {
+    public static UserWork findUser(Connection conn, String login) throws SQLException {
    	 
         String sql = "select * from `users` where login = ? ";
  
         PreparedStatement pstm = conn.prepareStatement(sql);
-        pstm.setString(1, userName);
+        pstm.setString(1, login);
  
         ResultSet rs = pstm.executeQuery();
  
@@ -57,7 +57,7 @@ public class DBUtils {
             String group = rs.getString("group");
             String email = rs.getString("email");
             UserWork user = new UserWork();
-            user.setLogin(userName);
+            user.setLogin(login);
             user.setPassword(password);
             user.setGroup(group);
             user.setEmail(email);
@@ -68,6 +68,47 @@ public class DBUtils {
     
     public static void updateUser(Connection conn, UserWork user) throws SQLException{
     	 	
+    }
+    
+    public static boolean isLogin(Connection conn, String login) throws SQLException{
+    	boolean isLoginExists = false;
+        String sql = "select * from `users` where login = ? ";
+        
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, login);
+ 
+        ResultSet rs = pstm.executeQuery();
+ 
+        if (rs.next()) {
+        	isLoginExists = true;
+        }
+        return isLoginExists;
+    }
+    
+    public static boolean isEmail(Connection conn, String email) throws SQLException{
+    	boolean isLoginExists = false;
+        String sql = "select * from `users` where email = ? ";
+        
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, email);
+ 
+        ResultSet rs = pstm.executeQuery();
+ 
+        if (rs.next()) {
+        	isLoginExists = true;
+        }
+        return isLoginExists;
+    }    
+    
+    public static void setUser(Connection conn, UserWork user) throws SQLException{
+    	String sql = "INSERT INTO `users` (`login`, `password`, `group`, `email`) VALUES (?, ?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, user.getLogin());    
+        ps.setString(2, user.getPassword());
+        ps.setString(3, user.getGroup());
+        ps.setString(4, user.getEmail());
+	    ps.executeUpdate();
+	    ps.close();		       
     }
     
     public static void dataUser(Connection conn, UserWork user) throws SQLException{

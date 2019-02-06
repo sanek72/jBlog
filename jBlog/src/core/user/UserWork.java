@@ -68,6 +68,7 @@ public class UserWork {
 			user = DBUtils.findUser(getConnectionDb(), login);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return user;
@@ -78,6 +79,7 @@ public class UserWork {
 			DBUtils.updateUser(getConnectionDb(), this);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
@@ -86,6 +88,7 @@ public class UserWork {
 			DBUtils.dataUser(getConnectionDb(), this);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
+			e.printStackTrace();
 		}
 	}	
 	
@@ -100,6 +103,7 @@ public class UserWork {
 			return DBUtils.isUserExists(getConnectionDb(), login, password, true);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -136,8 +140,38 @@ public class UserWork {
 			DBUtils.setRandomPassword(getConnectionDb(), login, rndpass);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
+			e.printStackTrace();
 		}
 	}
+	
+	public void setUserDb(){
+		try {
+			DBUtils.setUser(getConnectionDb(), this);
+		} catch (SQLException e) {
+			LogUtils.logErrore(e.getMessage());
+			e.printStackTrace();
+		}		
+	}
+	
+	public boolean isLogin(String login){
+		try {
+			return DBUtils.isLogin(getConnectionDb(), login);
+		} catch (SQLException e) {
+			LogUtils.logErrore(e.getMessage());
+			e.printStackTrace();
+		}		
+		return false;
+	}
+	
+	public boolean isEmail(String email){
+		try {
+			return DBUtils.isEmail(getConnectionDb(), email);
+		} catch (SQLException e) {
+			LogUtils.logErrore(e.getMessage());
+			e.printStackTrace();
+		}		
+		return false;
+	}	
 				
 	public String getEmail() {
 		return email;

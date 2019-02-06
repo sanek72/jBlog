@@ -9,7 +9,10 @@ public class Validator {
 		if(s == null){
 			return false;
 		}
-		Pattern pattern = Pattern.compile("^[a-z0-9]{2,16}+", Pattern.CASE_INSENSITIVE);
+			if(s.indexOf("admin") != - 1) {
+				return false;
+		}
+		Pattern pattern = Pattern.compile("^[a-z0-9admin]{2,16}+", Pattern.CASE_INSENSITIVE);
 	    Matcher matcher = pattern.matcher(s.trim());
 	    return matcher.matches();
 	}	

@@ -40,9 +40,13 @@
 					name="password2" value="${password2}"></td>
 			</tr>
 			<tr>
-				<td>E-mail<font color="red">*</font>:
-				</td>
+				<td>E-mail<font color="red">*</font>:</td>
 				<td><input type="text" size="20" name="email" value="${email}"></td>
+			</tr>
+			<tr>
+				<td>Remember me</td>
+				<td><input type="checkbox" name="rememberMe" value="true" /></td>
+			</tr>				
 		</table>
 
 
