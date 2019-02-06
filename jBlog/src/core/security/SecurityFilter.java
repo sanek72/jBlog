@@ -58,13 +58,6 @@ public class SecurityFilter implements Filter {
 											// authorization
 
 		}
-
-		// if(isJsp(servletPath)){ //the client requests a jsp page
-		// request.setAttribute("context", req.getContextPath());
-		// request.getRequestDispatcher("/WEB-INF/views/nofound.jsp").forward(request,
-		// response);
-		// return;
-		// }
 		
 		LogUtils.logInfo("(SecurityFilter doFilter()) - ContextPath:" + req.getContextPath() + " ServletPath:"
 				+ servletPath + ", URL =" + req.getRequestURL());		
