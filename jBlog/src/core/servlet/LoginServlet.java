@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 		LogUtils.logInfo("(LoginServlet do get()) - User: " + session.getId() + ", Login: " + user.getLogin() + ", Group: " + user.getGroup() + ", isAuth: " + user.isAuth());
 		
 		if(!user.isAuth()){
-			request.getRequestDispatcher("/resources/views/login.jsp").forward(request, response);  
+			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);  
 		}else
 			response.sendRedirect(request.getContextPath() + "/home");
 	}
@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 		LogUtils.logInfo("(LoginServlet do Post()) - login.attempt: " + Integer.parseInt(config.getProperty("login.attempt")));
 		if(user.getLoginAttempt() >= Integer.parseInt(config.getProperty("login.attempt"))){
 			request.setAttribute(Constants.CONTEXT_PATCH, request.getContextPath());
-			request.getRequestDispatcher("/resources/views/nofound.jsp").forward(request, response);  			
+			request.getRequestDispatcher("/WEB-INF/views/nofound.jsp").forward(request, response);  			
 			return;
 		}						
 		
@@ -80,7 +80,7 @@ public class LoginServlet extends HttpServlet {
         } else {
 			user.setLoginAttempt();
 			request.setAttribute(Constants.NO_AUTHORIZED_USER, true);
-			request.getRequestDispatcher("/resources/views/login.jsp").forward(request, response); 
+			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response); 
 			LogUtils.logInfo("(LoginServlet do get()) - authorization failed: " + user.getLogin());
 				    
         }

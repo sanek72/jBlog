@@ -16,7 +16,7 @@
 		<session-timeout>10</session-timeout>
 	</session-config>
 	<welcome-file-list>
-		<welcome-file>/resources/views/index.jsp</welcome-file>
+		<welcome-file>/WEB-INF/views/index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>

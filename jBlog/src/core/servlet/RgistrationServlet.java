@@ -39,7 +39,7 @@ public class RgistrationServlet extends HttpServlet {
 		if (user.isAuth()) {
 			response.sendRedirect(request.getContextPath() + "/home");
 		} else {
-			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 		}
 	}
 
@@ -67,37 +67,37 @@ public class RgistrationServlet extends HttpServlet {
 		
 		if(!Validator.loginValid(login)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Login not correctly entered!");
-			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}
 		
 		if(user.isLogin(login)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "This login already exists!");
-			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}				
 		
 		if(!Validator.passwordValid(password)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Password not entered correctly!");
-			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}		
 		
 		if(!password.equals(password2)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Passwords do not match!");
-			request.getRequestDispatcher("/resourcesF/views/registration.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}			
 				
 		if(!Validator.emailValid(email)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Email not entered correctly!");
-			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}	
 		
 		if(user.isEmail(email)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "This email is already in use!");
-			request.getRequestDispatcher("/resources/views/registration.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}			
 		
@@ -117,7 +117,7 @@ public class RgistrationServlet extends HttpServlet {
 			CookieUtils.addCookie(response, user.getLogin(), rndpass);
 		}		
 		
-		request.getRequestDispatcher("/resources/views/registrationOn.jsp").forward(request, response);						
+		request.getRequestDispatcher("/WEB-INF/views/registrationOn.jsp").forward(request, response);						
 		LogUtils.logInfo("(LoginServlet do doPost()) - New User: " + session.getId() + ", Login: " + user.getLogin());
 		
 	}		
