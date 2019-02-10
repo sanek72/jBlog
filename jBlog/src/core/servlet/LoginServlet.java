@@ -64,6 +64,8 @@ public class LoginServlet extends HttpServlet {
 		boolean rememberMe = Boolean.valueOf(request.getParameter("rememberMe"));
 		LogUtils.logInfo("(LoginServlet do doPost()) - " + rememberMe);
 	
+		LogUtils.logInfo("(LoginServlet do doPost()) - user login " + login + " / " + password);
+		
 		if(user.checkLoginPassword(login, md5Utils.md5Apache(password), false)){
 			user.setLogin(login);	
 			user.setAuth(true);

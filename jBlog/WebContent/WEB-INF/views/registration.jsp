@@ -9,8 +9,6 @@
 
 <title>Registration page</title>
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.servletContext.contextPath}/resources/css/style.css" />
 
 </head>
 <body>
@@ -25,27 +23,27 @@
 			<tr>
 				<td>Login<font color="red">*</font>:
 				</td>
-				<td><input type="text" size="20" name="login" value="${login}"></td>
+				<td><input type="text" size="20" name="login" value="${login}" required></td>
 				<td></td>
 			<tr>
 				<td>Password<font color="red">*</font>:
 				</td>
 				<td><input type="password" size="20" maxlength="20"
-					name="password" value="${password}"></td>
+					name="password" value="${password}" required></td>
 			</tr>
 			<tr>
 				<td>Confirm password<font color="red">*</font>:
 				</td>
 				<td><input type="password" size="20" maxlength="20"
-					name="password2" value="${password2}"></td>
+					name="password2" value="${password2}" required></td>
 			</tr>
 			<tr>
 				<td>E-mail<font color="red">*</font>:</td>
-				<td><input type="text" size="20" name="email" value="${email}"></td>
+				<td><input type="email" size="20" name="email" value="${email}" required></td>
 			</tr>
 			<tr>
 				<td>Remember me</td>
-				<td><input type="checkbox" name="rememberMe" value="true" /></td>
+				<td><input type="checkbox" name="rememberMe" value=true /></td>
 			</tr>				
 		</table>
 

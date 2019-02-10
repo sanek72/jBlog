@@ -1,0 +1,121 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+
+#page {
+	margin: 5px;
+}
+
+#header {
+	min-height: 5%;
+	padding-top: 5px;
+	padding-left: 40px;
+}
+
+#login_block {
+	margin: 10% auto 0;
+	padding: 20px;
+	width: 400px;
+	height: 240px;
+	background: #ffffff;
+	border-radius: 15px;
+	border: 3px solid #808080;
+}
+
+#info {
+	margin: 0 auto 10%;
+	width: 600px;
+	height: 100px;
+	text-align: center;
+}
+
+#footer {
+	min-height: 5%;
+	clear: both;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 40px;
+}
+
+p {
+	font-family: Arial;
+	font-weight: 700;
+	font-size: 12pt;
+}
+
+h2 {
+	color: #888;
+	margin-bottom: 5px;
+}
+
+h2 small {
+	font-weight: normal;
+	color: #888;
+	font-size: 12pt;
+	display: block;
+}
+
+#plogin {
+	font-weight: normal;
+	color: #888;
+	display: block;
+}
+
+A {
+	text-decoration: none;
+	color: #5badff;
+}
+
+A:visited {
+	color: #5badff;
+}
+
+A:active {
+	color: #bb0000;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #bb0000;
+}
+
+input[type="text"] {
+	border-bottom: 1px solid #808080;
+	border-radius: 15px;
+	background-color: lightblue;
+	padding: 8px 25px;
+}
+
+input[type="password"] {
+	border-bottom: 1px solid #808080;
+	border-radius: 15px;
+	background-color: lightblue;
+	padding: 8px 25px;
+}
+
+input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+}
+
+input[type=submit] {
+	background-color: #c0c0c0;
+	border-bottom: 1px solid #808080;
+	border-radius: 15px;
+	color: white;
+	padding: 8px 16px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-color: lightblue;
+}
