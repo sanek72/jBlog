@@ -1,76 +1,93 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!doctype html>
 <%@ page import="core.utils.Constants"%>
 <html>
 <head>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<meta name="description" content="java web blog">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Java site</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.servletContext.contextPath}/resources/css/normalize.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.servletContext.contextPath}/resources/css/homestyle.css" />
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Oswald:400,300"
+	type="text/css">
+
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<title>Домашння страница</title>
 </head>
 
 <body>
-	<table border="1" background="" bgcolor="" cellpadding="10"
-		style="width: 100%; border-radius: 5px;">
-		<tr>
-			<th>
-				<h1>My blog</h1>
-				<h3></h3>
-			</th>
-		</tr>
-	</table>
-	<table border="1" bgcolor="" cellpadding="10"
-		style="width: 100%; border-radius: 5px;">
-		<tr>
-			<td rowspan="2" style="width: 80%">
-				<h2>Главная</h2>
-				<p style="text-indent: 20px">Здравствуйте</p>
+	<!--<body background="${pageContext.servletContext.contextPath}/resources/images/main3.jpg">
+	-->
 
-				<p style="text-indent: 20px">test</p>
+	<div id="wrapper">
 
-			</td>
+		<div id="header">
+		
+		<div id="logo">
+		!MyBlog!
+		</div>
 
-			<!--САЙДБАР-->
-			<td bgcolor="">
-				<h3>Меню</h3>
+			<form name="search" action="#" method="get">
+				<input type="text" name="q" placeholder="Search">
+				<button type="submit">Go</button>
+			</form>
 
-				<p>
+		</div>
+		
+		<div id="navigation">
+	<ul>
+		<li><a href="${pageContext.servletContext.contextPath}/">HOME</a></li>
+		<li><a href="/services/">test</a></li>
+	</ul>		
+		</div>
+		
+			<div id="sidebar">
+			<h3>Записи</h3>
+	<ul>
+		<li><a href="#">test1</a></li>
+		<li><a href="#">test2</a></li>
+	</ul>			
+			</div>
+			<div id="content">
+  
+  <ul>
+				<%@ page import="core.bean.*"%>
 
-					<%
-						if ((Boolean) request.getAttribute(Constants.IS_AUTHORIZED_USER)) {
-							out.println("Welcome " + request.getAttribute(Constants.AUTHORIZED_USER) + "<br>");
-							out.println("<a href=\"exit\"> <span style=\"margin-left:5px;\">Exit</span;></a>");
-						} else {
-							out.println("<a href=\"login\"> <span style=\"margin-left:5px;\">Login</span;></a><br>");
-							out.println("<a href=\"registration\"> <span style=\"margin-left:5px;\">New user</span;></a>");
+				<%
+					Catalogue cataloque = (Catalogue) request.getAttribute("catalogue");
+
+					for (String a : cataloque.getTypes()) {
+						out.println("<li>");
+						out.println(a);
+						out.println("<ul>");
+						for (String b : cataloque.getSubTypes(a)) {
+							out.println("<li>" + b + "</li>");
+							out.println("<ul>");
+							for (String c : cataloque.getName(a, b)) {
+								out.println("<p><a href=\"" + request.getContextPath() + "?entry=" + c + "\">" + c + "</a></p>");
+							}
+							out.println("</ul>");
 						}
-					%>
+						out.println("</ul>");
+						out.println("</li>");
+					}
+				%>
+			</ul>
 
+			</div>		
 
-				</p>
+	</div>
+	
+			<div id="footer">
+			<p>
+				Простой блог на java: <a href="https://github.com/sanek72/jBlog">Jblog</a>
+			</p>
 
-			</td>
-		</tr>
-
-		<tr>
-			<td bgcolor="">
-				<h3>Навигация</h3>
-				<p>null</p>
-			</td>
-		</tr>
-	</table>
-
-	<table border="1" bgcolor="" height="100" cellpadding="10"
-		style="width: 100%; border-radius: 5px;">
-		<!--Создаём строку.-->
-		<tr>
-			<!--Создаём столбец-->
-			<th>
-				<h3>Подвал</h3>
-
-			</th>
-		</tr>
-	</table>
-
+		</div>
 
 </body>
 

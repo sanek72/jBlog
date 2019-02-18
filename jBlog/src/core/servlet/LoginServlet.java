@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import core.user.User;
 import core.user.UserWork;
 import core.utils.Constants;
 import core.utils.CookieUtils;
@@ -28,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();	
 		
-		UserWork user = (UserWork) session.getAttribute(session.getId());
+		User user = (User) session.getAttribute(session.getId());
 				
 		LogUtils.logInfo("(LoginServlet do get()) - User: " + session.getId() + ", Login: " + user.getLogin() + ", Group: " + user.getGroup() + ", isAuth: " + user.isAuth());
 		
@@ -42,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();	
 		
-		UserWork user = (UserWork) session.getAttribute(session.getId());
+		User user = (User) session.getAttribute(session.getId());
 		
 		LogUtils.logInfo("(LoginServlet do doPost()) - User: " + session.getId() + ", Login: " + user.getLogin() + ", Group: " + user.getGroup() + ", isAuth: " + user.isAuth() + ", Login Attempt Count: " + user.getLoginAttempt());		
 
@@ -66,14 +67,16 @@ public class LoginServlet extends HttpServlet {
 	
 		LogUtils.logInfo("(LoginServlet do doPost()) - user login " + login + " / " + password);
 		
-		if(user.checkLoginPassword(login, md5Utils.md5Apache(password), false)){
+		UserWork userWork = new UserWork();
+		
+		if(userWork.checkLoginPassword(user, login, md5Utils.md5Apache(password), false)){
 			user.setLogin(login);	
 			user.setAuth(true);
-			user.dataUser();
+			userWork.dataUser(user);
 			session.setAttribute(session.getId(), user);
 			if(rememberMe){
 				String rndpass = md5Utils.md5Apache(StringUtils.passwordGenerator());
-				user.setRandomPass(login, rndpass);
+				userWork.setRandomPass(user, login, rndpass);
 				CookieUtils.addCookie(response, user.getLogin(), rndpass);
 			}
 			response.sendRedirect(request.getContextPath() + "/home");

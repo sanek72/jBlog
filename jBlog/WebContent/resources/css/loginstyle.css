@@ -16,7 +16,6 @@ html, body {
 #header {
 	min-height: 5%;
 	padding-top: 5px;
-	padding-left: 40px;
 }
 
 #login_block {
@@ -41,7 +40,6 @@ html, body {
 	clear: both;
 	margin-left: auto;
 	margin-right: auto;
-	padding-left: 40px;
 }
 
 p {
@@ -88,15 +86,23 @@ a:hover {
 
 input[type="text"] {
 	border-bottom: 1px solid #808080;
-	border-radius: 15px;
-	background-color: lightblue;
+	border-radius: 10px;
+	background: lightblue !important;
+   -webkit-border-radius: 15px; 
+   -moz-border-radius: 15px;
+   -khtml-border-radius: 15px;   
+    outline: none;   	
 	padding: 8px 25px;
 }
 
 input[type="password"] {
 	border-bottom: 1px solid #808080;
-	border-radius: 15px;
-	background-color: lightblue;
+	border-radius: 10px;
+	background: lightblue !important;
+   -webkit-border-radius: 15px; 
+   -moz-border-radius: 15px;
+   -khtml-border-radius: 15px;   
+    outline: none;   	
 	padding: 8px 25px;
 }
 
@@ -106,14 +112,20 @@ input[type="checkbox"] {
 }
 
 input[type=submit] {
-	background-color: #c0c0c0;
-	border-bottom: 1px solid #808080;
+	background: #c0c0c0;
 	border-radius: 15px;
 	color: white;
+	outline: none; 
 	padding: 8px 16px;
 	text-decoration: none;
 	margin: 4px 2px;
 	cursor: pointer;
+}
+
+input[type="text"]:focus {
+  background: #c0c0c0;
+  color: #000000;
+  border: 1px solid #000000
 }
 
 input[type=submit]:hover {

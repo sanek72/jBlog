@@ -66,9 +66,11 @@
 	</div>
 
 	<div id="footer">
+	<br>
 		<p>
 			Простой блог на java: <a href="https://github.com/sanek72/jBlog">Jblog</a>
 		</p>
+		<br>
 	</div>
 
 

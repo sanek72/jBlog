@@ -1,19 +1,19 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<%@ page import="core.utils.Constants"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Page not found</title>
+<title>Страница не найдена</title>
 </head>
-<body>
-	<h3>Sorry! Page not found</h3>
+<body
+	background="${pageContext.servletContext.contextPath}/resources/images/main3.jpg">
+	<h3>Извините! Запрашиваемая вами страница не найдена.</h3>
 	<h1>404</h1>
 
 
 
-	<a href=" ${pageContext.request.contextPath} ">Main page</a>
+	<p><a href=" ${pageContext.request.contextPath} ">Домашняя страница</a></p>
 
 </body>
 </html>

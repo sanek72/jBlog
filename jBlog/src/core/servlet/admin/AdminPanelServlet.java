@@ -15,14 +15,7 @@ import javax.servlet.http.HttpSession;
 public class AdminPanelServlet extends HttpServlet {       
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletOutputStream out = response.getOutputStream();		
-        	out.println("YES GET");
-			//Cookie cookie = new Cookie("cookieName", "007");
-			//cookie.setMaxAge(60 * 60);
-			//cookie.setPath("/");// ?????
-			//response.addCookie(cookie);        	
-        	//HttpSession session = request.getSession();	
-        	//session.invalidate();
+		request.getRequestDispatcher("/WEB-INF/views/adminlogin.jsp").forward(request, response);  
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

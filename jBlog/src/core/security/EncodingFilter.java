@@ -2,13 +2,13 @@ package core.security;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 
 import core.utils.LogUtils;
 
@@ -16,7 +16,7 @@ import core.utils.LogUtils;
  * Servlet implementation class EncodingFilter
  */
 @WebServlet("/EncodingFilter")
-public class EncodingFilter extends HttpServlet {
+public class EncodingFilter implements Filter {
 	 
 	  public EncodingFilter() {
 		  LogUtils.logInfo("EncodingFilter init!");

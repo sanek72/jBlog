@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import core.user.User;
 import core.user.UserWork;
 import core.utils.Constants;
 import core.utils.CookieUtils;
@@ -31,7 +32,7 @@ public class RgistrationServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		UserWork user = (UserWork) session.getAttribute(session.getId());
+		User user = (User) session.getAttribute(session.getId());
 
 		LogUtils.logInfo("(RgistrationServlet do get()) - User: " + session.getId() + ", Login: " + user.getLogin()
 				+ ", Group: " + user.getGroup() + ", isAuth: " + user.isAuth());
@@ -47,7 +48,7 @@ public class RgistrationServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();	
 		
-		UserWork user = (UserWork) session.getAttribute(session.getId());
+		User user = (User) session.getAttribute(session.getId());
 				
 		LogUtils.logInfo("(LoginServlet do doPost()) - User: " + session.getId() + ", Login: " + user.getLogin() + ", Group: " + user.getGroup() + ", isAuth: " + user.isAuth());
 		
@@ -63,40 +64,45 @@ public class RgistrationServlet extends HttpServlet {
 		request.setAttribute("login", login);
 		request.setAttribute("password", password);
 		request.setAttribute("password2", password);	
-		request.setAttribute("email", email);			
+		request.setAttribute("email", email);		
+		
+		UserWork userWork = new UserWork();
+		
+		LogUtils.logInfo("(LoginServlet do doPost()) - Registration User: Login - " + login + 
+				", password - " + password + ", password2 - " + password2 + ", email - " + email);
 		
 		if(!Validator.loginValid(login)){
-			request.setAttribute(Constants.REGISTRATION_ERRORE, "Login not correctly entered!");
+			request.setAttribute(Constants.REGISTRATION_ERRORE, "Введённый вами логин некорректен. Пожалуйста, введите другой логин.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}
 		
-		if(user.isLogin(login)){
-			request.setAttribute(Constants.REGISTRATION_ERRORE, "This login already exists!");
+		if(userWork.isLogin(user, login)){
+			request.setAttribute(Constants.REGISTRATION_ERRORE, "Такой логин уже существует. Пожалуйста, введите другой логин.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}				
 		
 		if(!Validator.passwordValid(password)){
-			request.setAttribute(Constants.REGISTRATION_ERRORE, "Password not entered correctly!");
+			request.setAttribute(Constants.REGISTRATION_ERRORE, "Введённый вами пароль некорректен. Пожалуйста, введите другой пароль.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}		
 		
 		if(!password.equals(password2)){
-			request.setAttribute(Constants.REGISTRATION_ERRORE, "Passwords do not match!");
+			request.setAttribute(Constants.REGISTRATION_ERRORE, "Введенные вами пароли не совподают. Пожалуйста, введите пароли еще раз.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}			
 				
 		if(!Validator.emailValid(email)){
-			request.setAttribute(Constants.REGISTRATION_ERRORE, "Email not entered correctly!");
+			request.setAttribute(Constants.REGISTRATION_ERRORE, "Введённый вами email некорректен. Пожалуйста, введите другой email.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}	
 		
-		if(user.isEmail(email)){
-			request.setAttribute(Constants.REGISTRATION_ERRORE, "This email is already in use!");
+		if(userWork.isEmail(user, email)){
+			request.setAttribute(Constants.REGISTRATION_ERRORE, "Такой email уже существует. Пожалуйста, введите другой email.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}			
@@ -109,11 +115,11 @@ public class RgistrationServlet extends HttpServlet {
 		user.setPassword(md5Utils.md5Apache(password));
 		user.setGroup(Constants.USER_GROUP[1]);
 		user.setEmail(email);
-		user.setUserDb();
+		userWork.setUserDb(user);
 		
 		if(rememberMe){
 			String rndpass = md5Utils.md5Apache(StringUtils.passwordGenerator());
-			user.setRandomPass(login, rndpass);
+			userWork.setRandomPass(user, login, rndpass);
 			CookieUtils.addCookie(response, user.getLogin(), rndpass);
 		}		
 		

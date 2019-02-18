@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
+import core.user.User;
 import core.user.UserWork;
 
-public class DBUtils {
+public class DBUsers {
 
-	public DBUtils() {
+	public DBUsers() {
 
 	}
 	
@@ -43,7 +43,7 @@ public class DBUtils {
 		
 		
 	
-    public static UserWork findUser(Connection conn, String login) throws SQLException {
+    public static User findUser(Connection conn, String login) throws SQLException {
    	 
         String sql = "select * from `users` where login = ? ";
  
@@ -56,7 +56,7 @@ public class DBUtils {
             String password = rs.getString("password");
             String group = rs.getString("group");
             String email = rs.getString("email");
-            UserWork user = new UserWork();
+            User user = new User();
             user.setLogin(login);
             user.setPassword(password);
             user.setGroup(group);
@@ -66,7 +66,7 @@ public class DBUtils {
         return null;
     }		
     
-    public static void updateUser(Connection conn, UserWork user) throws SQLException{
+    public static void updateUser(User user) throws SQLException{
     	 	
     }
     
@@ -100,9 +100,9 @@ public class DBUtils {
         return isLoginExists;
     }    
     
-    public static void setUser(Connection conn, UserWork user) throws SQLException{
+    public static void setUser(User user) throws SQLException{
     	String sql = "INSERT INTO `users` (`login`, `password`, `group`, `email`) VALUES (?, ?, ?, ?)";
-        PreparedStatement ps = conn.prepareStatement(sql);
+        PreparedStatement ps = user.getConnectionDb().prepareStatement(sql);
         ps.setString(1, user.getLogin());    
         ps.setString(2, user.getPassword());
         ps.setString(3, user.getGroup());
@@ -111,11 +111,11 @@ public class DBUtils {
 	    ps.close();		       
     }
     
-    public static void dataUser(Connection conn, UserWork user) throws SQLException{
+    public static void dataUser(User user) throws SQLException{
     	
         String sql = "select * from `users` where login = ? ";
         
-        PreparedStatement pstm = conn.prepareStatement(sql);
+        PreparedStatement pstm = user.getConnectionDb().prepareStatement(sql);
         pstm.setString(1, user.getLogin());
  
         ResultSet rs = pstm.executeQuery();

@@ -1,6 +1,7 @@
 package core.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import core.user.UserWork;
+import core.bean.Catalogue;
+import core.blogentry.BlogEntryWork;
+import core.user.User;
 import core.utils.Constants;
 import core.utils.LogUtils;
 
@@ -24,7 +27,7 @@ public class HomeServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();	
 		
-		UserWork user = (UserWork) session.getAttribute(session.getId());	
+		User user = (User) session.getAttribute(session.getId());	
 		
 		LogUtils.logInfo("(HomeServlet do get()) - User: " + session.getId() + ", Login: " + user.getLogin() + ", Group: " + user.getGroup() + ", isAuth: " + user.isAuth());			
 		
@@ -34,6 +37,7 @@ public class HomeServlet extends HttpServlet {
 			request.setAttribute(Constants.AUTHORIZED_USER, user.getLogin());
 		}
 		
+		request.setAttribute("catalogue", new Catalogue(user.getConnectionDb()));
 		
 				
 		request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response); 

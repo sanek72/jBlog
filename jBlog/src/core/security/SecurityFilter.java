@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import core.user.User;
 import core.user.UserWork;
 import core.utils.Constants;
 import core.utils.LogUtils;
@@ -37,10 +38,10 @@ public class SecurityFilter implements Filter {
 
 		HttpSession session = req.getSession();
 
-		UserWork user = (UserWork) session.getAttribute(session.getId());
+		User user = (User) session.getAttribute(session.getId());
 
 		if (user == null) {
-			user = new UserWork();
+			user = new User();
 			request.setAttribute(Constants.COOKIE_USER_CHECKED, Constants.COOKIE_USER_CHECKED);
 			LogUtils.logInfo("(SecurityFilter doFilter()) - USER_INIT_NULL: " + session.getId());
 		}
@@ -48,7 +49,8 @@ public class SecurityFilter implements Filter {
 		boolean isCheckCookie = (request.getAttribute(Constants.COOKIE_USER_CHECKED) == null) ? false : true;
 
 		if (isCheckCookie) {
-			user.getUserOnCookies(req);
+			UserWork userWork = new UserWork();
+			userWork.getUserOnCookies(user, req);
 			session.setAttribute(session.getId(), user);
 			session.removeAttribute(Constants.COOKIE_USER_CHECKED);
 			LogUtils.logInfo("(SecurityFilter doFilter()) - COOKIE_USER_CHECKED: " + session.getId());

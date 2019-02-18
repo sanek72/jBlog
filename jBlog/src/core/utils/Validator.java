@@ -35,6 +35,6 @@ public class Validator {
 				Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(s.trim());
 		return matcher.matches();
-	}
+	}	
 
 }
