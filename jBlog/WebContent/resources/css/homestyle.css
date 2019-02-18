@@ -1,0 +1,85 @@
+body {
+	background-color: #c0c0c0;
+	border-top: 10px solid #9dceff;
+	margin: 0;
+}
+
+#wrapper {
+	margin: 20px;
+	background-color: #ffffff;
+}
+
+#header {
+	height: 50px;
+	width: 100%;
+	border: 1px solid #000000;
+}
+
+#logo {
+	padding: 10px;
+	float: left;
+}
+
+form[name="search"] {
+	padding: 10px;
+	float: right;
+}
+
+#navigation {
+	width: 100%;
+	margin-top: 5px;
+	border: 1px solid #000000;
+}
+
+#navigation a {
+	text-decoration: none;
+}
+
+#navigation ul {
+	margin: 0;
+	padding: 0;
+}
+
+#navigation li {
+	list-style-position: inside;
+	display: inline-block;
+	padding: 10px;
+}
+
+#sidebar {
+	float: left;
+	width: 250px;
+}
+
+#sidebar h3 {
+	text-align: center;
+	border-bottom: 1px solid #400040;
+}
+
+#sidebar a {
+	text-decoration: none;
+}
+
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar li {
+	font-weight: 300;
+	list-style-position: inside;
+	list-style-type: square;
+	padding: 2px;
+}
+
+#content {
+	margin-left: 280px;
+	padding-bottom: 50px;
+}
+
+#footer {
+	background: #808040;
+	height: 50px;
+	width: 100%;	
+	padding: 10px;
+}

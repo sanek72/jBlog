@@ -1,0 +1,75 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	padding: 10px;	
+	}
+		
+	
+#header {
+	min-height: 5%;
+}	
+	
+.main {
+	float:left;
+	background: #ffffff;
+	margin: 1% auto 0;
+	padding: 20px;	
+	}	
+	
+#info {
+	clear: both;
+	padding: 20px;
+	margin:  0 auto 2%;
+
+}	
+	
+#footer {
+	min-height: 5%;
+	clear: both;
+	margin-left: auto;
+	margin-right: auto;
+}	
+	
+.field {
+	clear:both; 
+	text-align:right; 
+	line-height:35px;
+	font-size:20px;
+	}	
+	
+label {
+	float:left;
+	outline: none;   	
+	 }
+	 
+A {
+	text-decoration: none;
+	color: #5badff;
+}
+
+A:visited {
+	color: #5badff;
+}
+
+A:active {
+	color: #bb0000;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #bb0000;
+}	 
+	 
+p {
+	font-family: Arial;
+	font-weight: 700;
+	font-size: 12pt;
+}
+
+	
+
