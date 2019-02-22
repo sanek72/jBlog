@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import core.user.User;
+import core.model.User;
 import core.user.UserWork;
 import core.utils.Constants;
 import core.utils.CookieUtils;

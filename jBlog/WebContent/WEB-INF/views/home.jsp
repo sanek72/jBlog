@@ -1,9 +1,11 @@
 <!doctype html>
-<%@ page import="core.utils.Constants"%>
+
 <html>
 <head>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="core.model.*"%>
 <meta name="description" content="java web blog">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -26,10 +28,8 @@
 	<div id="wrapper">
 
 		<div id="header">
-		
-		<div id="logo">
-		!MyBlog!
-		</div>
+
+			<div id="logo">!MyBlog!</div>
 
 			<form name="search" action="#" method="get">
 				<input type="text" name="q" placeholder="Search">
@@ -37,52 +37,46 @@
 			</form>
 
 		</div>
-		
+
 		<div id="navigation">
-	<ul>
-		<li><a href="${pageContext.servletContext.contextPath}/">HOME</a></li>
-		<li><a href="/services/">test</a></li>
-	</ul>		
+			<ul>
+				<li><a href="${pageContext.servletContext.contextPath}/">HOME</a></li>
+				<li><a href="/services/">test</a></li>
+			</ul>
 		</div>
-		
-			<div id="sidebar">
+
+		<div id="sidebar">
 			<h3>Записи</h3>
-	<ul>
-		<li><a href="#">test1</a></li>
-		<li><a href="#">test2</a></li>
-	</ul>			
-			</div>
-			<div id="content">
-  
-  <ul>
-				<%@ page import="core.bean.*"%>
+			<ul>
+				<li><a href="#">test1</a></li>
+				<li><a href="#">test2</a></li>
+			</ul>
+		</div>
+		<div id="content">
 
-				<%
-					Catalogue cataloque = (Catalogue) request.getAttribute("catalogue");
+			<ul>
+				<c:forEach items="${listPost}" var="blogPosts">
+					<li>${blogPosts.key}
+						<ul>
+							<c:forEach items="${blogPosts.value.posts}" var="subcategory">
+								<li>${subcategory.key}</li>
+								<ul>
+									<c:forEach items="${subcategory.value}" var="post">
+										<p><a href="${pageContext.servletContext.contextPath}/?entry=${post.id}">${post.name}</a></p>
+									</c:forEach>
+								</ul>
+							</c:forEach>
+						</ul>
+					</li>
 
-					for (String a : cataloque.getTypes()) {
-						out.println("<li>");
-						out.println(a);
-						out.println("<ul>");
-						for (String b : cataloque.getSubTypes(a)) {
-							out.println("<li>" + b + "</li>");
-							out.println("<ul>");
-							for (String c : cataloque.getName(a, b)) {
-								out.println("<p><a href=\"" + request.getContextPath() + "?entry=" + c + "\">" + c + "</a></p>");
-							}
-							out.println("</ul>");
-						}
-						out.println("</ul>");
-						out.println("</li>");
-					}
-				%>
+				</c:forEach>
 			</ul>
 
-			</div>		
+		</div>
 
 	</div>
-	
-			<div id="footer">
+
+	<div id="footer">
 			<p>
 				Простой блог на java: <a href="https://github.com/sanek72/jBlog">Jblog</a>
 			</p>

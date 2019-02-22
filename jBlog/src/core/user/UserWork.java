@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 
 import core.database.DBUsers;
+import core.model.User;
 import core.utils.CookieUtils;
 import core.utils.LogUtils;
 

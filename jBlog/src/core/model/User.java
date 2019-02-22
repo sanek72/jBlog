@@ -1,4 +1,4 @@
-package core.user;
+package core.model;
 
 import java.sql.Connection;
 import java.util.Date;
