@@ -1,4 +1,4 @@
-package core.database;
+package core.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,15 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import core.model.User;
-import core.user.UserWork;
 
-public class DBUsers {
-
-	public DBUsers() {
-
-	}
+public class DBUser {
 	
-	public static boolean isUserExists(Connection connection, String login, String password, boolean rndpass) throws SQLException{
+	public boolean isUserExists(Connection connection, String login, String password, boolean rndpass) throws SQLException{
 	
 		PreparedStatement ps;
         boolean isUserExists = false;
@@ -33,7 +28,7 @@ public class DBUsers {
          return isUserExists;
 	}
 	
-	public static void setRandomPassword(Connection conn, String login, String rndpass) throws SQLException{
+	public void setRandomPassword(Connection conn, String login, String rndpass) throws SQLException{
 	    PreparedStatement ps = conn.prepareStatement("UPDATE users SET randpass = ? WHERE login = ?");
 	    ps.setString(1,rndpass);
 	    ps.setString(2,login);
@@ -43,7 +38,7 @@ public class DBUsers {
 		
 		
 	
-    public static User findUser(Connection conn, String login) throws SQLException {
+    public User findUser(Connection conn, String login) throws SQLException {
    	 
         String sql = "select * from `users` where login = ? ";
  
@@ -66,11 +61,11 @@ public class DBUsers {
         return null;
     }		
     
-    public static void updateUser(User user) throws SQLException{
+    public void updateUser(User user) throws SQLException{
     	 	
     }
     
-    public static boolean isLogin(Connection conn, String login) throws SQLException{
+    public boolean isLogin(Connection conn, String login) throws SQLException{
     	boolean isLoginExists = false;
         String sql = "select * from `users` where login = ? ";
         
@@ -85,7 +80,7 @@ public class DBUsers {
         return isLoginExists;
     }
     
-    public static boolean isEmail(Connection conn, String email) throws SQLException{
+    public boolean isEmail(Connection conn, String email) throws SQLException{
     	boolean isLoginExists = false;
         String sql = "select * from `users` where email = ? ";
         
@@ -100,7 +95,7 @@ public class DBUsers {
         return isLoginExists;
     }    
     
-    public static void setUser(User user) throws SQLException{
+    public void setUser(User user) throws SQLException{
     	String sql = "INSERT INTO `users` (`login`, `password`, `group`, `email`) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = user.getConnectionDb().prepareStatement(sql);
         ps.setString(1, user.getLogin());    
@@ -111,7 +106,7 @@ public class DBUsers {
 	    ps.close();		       
     }
     
-    public static void dataUser(User user) throws SQLException{
+    public void dataUser(User user) throws SQLException{
     	
         String sql = "select * from `users` where login = ? ";
         

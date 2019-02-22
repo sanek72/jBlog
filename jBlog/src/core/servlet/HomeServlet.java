@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import core.blog.BlogWork;
 import core.model.ListPost;
 import core.model.User;
+import core.service.BlogWork;
 import core.utils.Constants;
 import core.utils.LogUtils;
 

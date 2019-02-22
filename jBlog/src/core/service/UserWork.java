@@ -1,20 +1,24 @@
-package core.user;
+package core.service;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import core.database.DBUsers;
 import core.model.User;
 import core.utils.CookieUtils;
 import core.utils.LogUtils;
 
 public class UserWork {
+	
+	private DBUser db;
+	
+	public UserWork(){
+		db = new DBUser();
+	}	
 	 	    	
 	public User getUser(User user, String login){
 		try {
-			user = DBUsers.findUser(user.getConnectionDb(), login);
+			user = db.findUser(user.getConnectionDb(), login);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
 			e.printStackTrace();
@@ -25,7 +29,7 @@ public class UserWork {
 	
 	public void updateUser(User user){
 		try {
-			DBUsers.updateUser(user);
+			db.updateUser(user);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
 			e.printStackTrace();
@@ -34,7 +38,7 @@ public class UserWork {
 	
 	public void dataUser(User user){
 		try {
-			DBUsers.dataUser(user);
+			db.dataUser(user);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
 			e.printStackTrace();
@@ -47,9 +51,9 @@ public class UserWork {
 		}
 		try {
 			if(!rndpass){
-				return DBUsers.isUserExists(user.getConnectionDb(), login, password, false);
+				return db.isUserExists(user.getConnectionDb(), login, password, false);
 			}
-			return DBUsers.isUserExists(user.getConnectionDb(), login, password, true);
+			return db.isUserExists(user.getConnectionDb(), login, password, true);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
 			e.printStackTrace();
@@ -76,7 +80,7 @@ public class UserWork {
 	
 	public void setRandomPass(User user, String login, String rndpass){
 		try {
-			DBUsers.setRandomPassword(user.getConnectionDb(), login, rndpass);
+			db.setRandomPassword(user.getConnectionDb(), login, rndpass);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
 			e.printStackTrace();
@@ -85,7 +89,7 @@ public class UserWork {
 	
 	public void setUserDb(User user){
 		try {
-			DBUsers.setUser(user);
+			db.setUser(user);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
 			e.printStackTrace();
@@ -94,7 +98,7 @@ public class UserWork {
 	
 	public boolean isLogin(User user, String login){
 		try {
-			return DBUsers.isLogin(user.getConnectionDb(), login);
+			return db.isLogin(user.getConnectionDb(), login);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
 			e.printStackTrace();
@@ -104,16 +108,12 @@ public class UserWork {
 	
 	public boolean isEmail(User user, String email){
 		try {
-			return DBUsers.isEmail(user.getConnectionDb(), email);
+			return db.isEmail(user.getConnectionDb(), email);
 		} catch (SQLException e) {
 			LogUtils.logErrore(e.getMessage());
 			e.printStackTrace();
 		}		
 		return false;
-	}	
-				
-
-
-	 
+	}					 
 
 	}

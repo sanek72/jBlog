@@ -1,8 +1,8 @@
 package core.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class ListPost{
@@ -18,7 +18,7 @@ public class ListPost{
 
 	public void putPost(String key, Post post) {
 		if(types == null){
-			types = new HashMap<String, ArrayList<Post>>();
+			types = new ConcurrentHashMap<String, ArrayList<Post>>();
 		}
 		
 		ArrayList<Post> posts;
