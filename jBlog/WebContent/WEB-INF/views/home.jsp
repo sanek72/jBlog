@@ -22,9 +22,8 @@
 <title>Домашння страница</title>
 </head>
 
-<body>
-	<!--<body background="${pageContext.servletContext.contextPath}/resources/images/main3.jpg">
-	-->
+<body background="${pageContext.servletContext.contextPath}/resources/images/backgroundhome.png">
+
 
 	<div id="wrapper">
 
@@ -76,6 +75,10 @@
 		<div id="content">
 <P>name</P>
 <P>time</P>
+
+      <c:forEach var = "i" begin = "1" end = "50">
+         Item <c:out value = "${i}"/><p>
+      </c:forEach>
 
 
 		</div>

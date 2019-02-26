@@ -1,6 +1,7 @@
 body {
-	background-color: #c0c0c0;
-	border-top: 10px solid #9dceff;
+	background-attachment: fixed;
+	/*background-color: #c0c0c0;*/
+	/*border-top: 10px solid #9dceff;*/
 	margin: 0;
 }
 
@@ -120,7 +121,7 @@ form[name="search"] {
 }
 
 #footer {
-	background: #808040;
+	background: #52a9d4;
 	height: 50px;
 	width: 100%;
 }
