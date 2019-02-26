@@ -5,14 +5,16 @@ body {
 }
 
 #wrapper {
+	overflow: hidden;
 	margin: 20px;
+	padding: 20px;
 	background-color: #ffffff;
 }
 
 #header {
 	height: 50px;
 	width: 100%;
-	border: 1px solid #000000;
+	padding-bottom: 50px;
 }
 
 #logo {
@@ -28,7 +30,6 @@ form[name="search"] {
 #navigation {
 	width: 100%;
 	margin-top: 5px;
-	border: 1px solid #000000;
 }
 
 #navigation a {
@@ -43,12 +44,12 @@ form[name="search"] {
 #navigation li {
 	list-style-position: inside;
 	display: inline-block;
-	padding: 10px;
 }
 
 #sidebar {
 	float: left;
 	width: 250px;
+	height: 100%;
 }
 
 #sidebar h3 {
@@ -57,7 +58,22 @@ form[name="search"] {
 }
 
 #sidebar a {
+	font-size: 16px;
 	text-decoration: none;
+	color: #0067ce;
+	display: block;
+}
+
+#sidebar a:visited {
+	color: #5badff;
+}
+
+#sidebar a:active {
+	color: #bb0000;
+}
+
+#sidebar a:hover {
+	color: #bb0000;
 }
 
 #sidebar ul {
@@ -66,20 +82,49 @@ form[name="search"] {
 }
 
 #sidebar li {
-	font-weight: 300;
-	list-style-position: inside;
-	list-style-type: square;
-	padding: 2px;
+	list-style-type: none;
+}
+
+
+#sidebar li.categories {
+
+}
+
+#sidebar p.categories{
+	font-size: 20px;
+}
+
+#sidebar p.categories:before {
+	padding-right: 2px;
+	font-weight: bold;
+	color: #337AB7;
+	content: "\2714";
+	transition-duration: 0.5s;
+}
+
+#sidebar p.categories:hover:before {
+	color: #800040;
+	content: "\2714";
+}
+
+#sidebar p.type{
+	font-size: 18px;
+}
+
+#sidebar li.type {
+	padding-left: 25px;
 }
 
 #content {
 	margin-left: 280px;
-	padding-bottom: 50px;
 }
 
 #footer {
 	background: #808040;
 	height: 50px;
-	width: 100%;	
-	padding: 10px;
+	width: 100%;
+}
+
+#footer p{
+		padding: 10px;
 }

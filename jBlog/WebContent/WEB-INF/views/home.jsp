@@ -18,6 +18,7 @@
 	type="text/css">
 
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<!-- <script src="${pageContext.servletContext.contextPath}/resources/js/snowflake.js"></script> -->
 <title>Домашння страница</title>
 </head>
 
@@ -38,43 +39,49 @@
 
 		</div>
 
-		<div id="navigation">
+		<!--<div id="navigation">
 			<ul>
 				<li><a href="${pageContext.servletContext.contextPath}/">HOME</a></li>
 				<li><a href="/services/">test</a></li>
 			</ul>
-		</div>
-
+		</div>-->
+			
+		
 		<div id="sidebar">
+		<h3>Меню</h3>
+		<P>Войти</P>
 			<h3>Записи</h3>
-			<ul>
-				<li><a href="#">test1</a></li>
-				<li><a href="#">test2</a></li>
-			</ul>
-		</div>
-		<div id="content">
-
+			
 			<ul>
 				<c:forEach items="${listPost}" var="blogPosts">
-					<li>${blogPosts.key}
+					<li class="categories"><p class="categories">${blogPosts.key}</p>
 						<ul>
 							<c:forEach items="${blogPosts.value.posts}" var="subcategory">
-								<li>${subcategory.key}</li>
-								<ul>
+								<li class="type"><p class="type">${subcategory.key}:</p></li>
+								<ol>
 									<c:forEach items="${subcategory.value}" var="post">
-										<p><a href="${pageContext.servletContext.contextPath}/?entry=${post.id}">${post.name}</a></p>
+										<li>
+										<a href="${pageContext.servletContext.contextPath}/?entry=${post.id}">${post.name}</a>
+										</li>
 									</c:forEach>
-								</ul>
+								</ol>
 							</c:forEach>
 						</ul>
 					</li>
 
 				</c:forEach>
 			</ul>
+			
+		</div>
+		<div id="content">
+<P>name</P>
+<P>time</P>
+
 
 		</div>
 
-	</div>
+
+</div>
 
 	<div id="footer">
 			<p>

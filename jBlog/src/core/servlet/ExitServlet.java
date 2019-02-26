@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import core.model.User;
+import core.service.UserWork;
 import core.utils.CookieUtils;
 import core.utils.LogUtils;
 
@@ -22,7 +24,12 @@ public class ExitServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();	
 		
-		CookieUtils.removeCookie(response);
+		User user = (User) session.getAttribute(session.getId());
+		
+		UserWork userWork = new UserWork(user);
+		
+		userWork.getCookies().removeCookie(response);
+		
 		request.getSession().invalidate();
 		response.sendRedirect(request.getContextPath() + "/home");
 	}

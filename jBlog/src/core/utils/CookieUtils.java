@@ -1,12 +1,11 @@
 package core.utils;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CookieUtils {
 
-	public static void addCookie(HttpServletResponse response, String login, String password){
+	public void addCookie(HttpServletResponse response, String login, String password){
 		Cookie cookieLogin = new Cookie(Constants.COOKIE_LOGIN_KEY, login);
 		Cookie cookiePassword = new Cookie(Constants.COOKIE_PASSWORD_KEY, password);
 		cookieLogin.setMaxAge(60 * 60);
@@ -15,7 +14,7 @@ public class CookieUtils {
 		response.addCookie(cookiePassword);
 	}
 	
-	public static void removeCookie(HttpServletResponse response){		
+	public void removeCookie(HttpServletResponse response){		
 		Cookie cookieLogin = new Cookie(Constants.COOKIE_LOGIN_KEY, null);
 		Cookie cookiePassword = new Cookie(Constants.COOKIE_PASSWORD_KEY, null);
 		cookieLogin.setMaxAge(0);
@@ -24,9 +23,8 @@ public class CookieUtils {
         response.addCookie(cookiePassword);
 	}
 	
-	public static String[] getCookieValue(HttpServletRequest request){
+	public String[] getCookieValue(Cookie[] cookies){
 		String[] s = new String[2];
-		Cookie[] cookies = request.getCookies();
 		
 		if (cookies == null){ 			
 			return null;

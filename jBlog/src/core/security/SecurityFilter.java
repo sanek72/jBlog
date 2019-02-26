@@ -49,8 +49,8 @@ public class SecurityFilter implements Filter {
 		boolean isCheckCookie = (request.getAttribute(Constants.COOKIE_USER_CHECKED) == null) ? false : true;
 
 		if (isCheckCookie) {
-			UserWork userWork = new UserWork();
-			userWork.getUserOnCookies(user, req);
+			UserWork userWork = new UserWork(user);
+			userWork.getUserOnCookies(req.getCookies());
 			session.setAttribute(session.getId(), user);
 			session.removeAttribute(Constants.COOKIE_USER_CHECKED);
 			LogUtils.logInfo("(SecurityFilter doFilter()) - COOKIE_USER_CHECKED: " + session.getId());

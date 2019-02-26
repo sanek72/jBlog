@@ -15,7 +15,6 @@ import core.utils.CookieUtils;
 import core.utils.LogUtils;
 import core.utils.StringUtils;
 import core.utils.Validator;
-import core.utils.md5Utils;
 
 /**
  * Servlet implementation class LoginPageServlet
@@ -66,24 +65,24 @@ public class RgistrationServlet extends HttpServlet {
 		request.setAttribute("password2", password);	
 		request.setAttribute("email", email);		
 		
-		UserWork userWork = new UserWork();
+		UserWork userWork = new UserWork(user);
 		
 		LogUtils.logInfo("(LoginServlet do doPost()) - Registration User: Login - " + login + 
 				", password - " + password + ", password2 - " + password2 + ", email - " + email);
 		
-		if(!Validator.loginValid(login)){
+		if(!userWork.getValid().loginValid(login)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Введённый вами логин некорректен. Пожалуйста, введите другой логин.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}
 		
-		if(userWork.isLogin(user, login)){
+		if(userWork.isLogin(login)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Такой логин уже существует. Пожалуйста, введите другой логин.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}				
 		
-		if(!Validator.passwordValid(password)){
+		if(!userWork.getValid().passwordValid(password)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Введённый вами пароль некорректен. Пожалуйста, введите другой пароль.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
@@ -95,13 +94,13 @@ public class RgistrationServlet extends HttpServlet {
 			return;
 		}			
 				
-		if(!Validator.emailValid(email)){
+		if(!userWork.getValid().emailValid(email)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Введённый вами email некорректен. Пожалуйста, введите другой email.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
 		}	
 		
-		if(userWork.isEmail(user, email)){
+		if(userWork.isEmail(email)){
 			request.setAttribute(Constants.REGISTRATION_ERRORE, "Такой email уже существует. Пожалуйста, введите другой email.");
 			request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
 			return;
@@ -112,15 +111,15 @@ public class RgistrationServlet extends HttpServlet {
 		
 		user.setAuth(true);
 		user.setLogin(login);
-		user.setPassword(md5Utils.md5Apache(password));
+		user.setPassword(userWork.md5Apache(password));
 		user.setGroup(Constants.USER_GROUP[1]);
 		user.setEmail(email);
-		userWork.setUserDb(user);
+		userWork.setUserDb();
 		
 		if(rememberMe){
-			String rndpass = md5Utils.md5Apache(StringUtils.passwordGenerator());
-			userWork.setRandomPass(user, login, rndpass);
-			CookieUtils.addCookie(response, user.getLogin(), rndpass);
+			String rndpass = userWork.md5Apache(StringUtils.passwordGenerator());
+			userWork.setRandomPass(login, rndpass);
+			userWork.getCookies().addCookie(response, user.getLogin(), rndpass);
 		}		
 		
 		request.getRequestDispatcher("/WEB-INF/views/registrationOn.jsp").forward(request, response);						

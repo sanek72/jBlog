@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Validator {
 	
-	public static boolean  loginValid(String s){
+	public boolean  loginValid(String s){
 		if(s == null){
 			return false;
 		}
@@ -17,7 +17,7 @@ public class Validator {
 	    return matcher.matches();
 	}	
 	
-	public static boolean  passwordValid(String s){
+	public boolean  passwordValid(String s){
 		if(s == null){
 			return false;
 		}		
@@ -27,7 +27,7 @@ public class Validator {
 	    return matcher.matches();
 	}		
 
-	public static boolean emailValid(String s) {
+	public boolean emailValid(String s) {
 		if(s == null){
 			return false;
 		}		

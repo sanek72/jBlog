@@ -16,8 +16,6 @@ import core.utils.CookieUtils;
 import core.utils.LogUtils;
 import core.utils.Properies;
 import core.utils.StringUtils;
-import core.utils.md5Utils;
-
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -67,17 +65,17 @@ public class LoginServlet extends HttpServlet {
 	
 		LogUtils.logInfo("(LoginServlet do doPost()) - user login " + login + " / " + password);
 		
-		UserWork userWork = new UserWork();
+		UserWork userWork = new UserWork(user);
 		
-		if(userWork.checkLoginPassword(user, login, md5Utils.md5Apache(password), false)){
+		if(userWork.checkLoginPassword(login, userWork.md5Apache(password), false)){
 			user.setLogin(login);	
 			user.setAuth(true);
-			userWork.dataUser(user);
+			userWork.dataUser();
 			session.setAttribute(session.getId(), user);
 			if(rememberMe){
-				String rndpass = md5Utils.md5Apache(StringUtils.passwordGenerator());
-				userWork.setRandomPass(user, login, rndpass);
-				CookieUtils.addCookie(response, user.getLogin(), rndpass);
+				String rndpass = userWork.md5Apache(StringUtils.passwordGenerator());
+				userWork.setRandomPass(login, rndpass);
+				userWork.getCookies().addCookie(response, user.getLogin(), rndpass);
 			}
 			response.sendRedirect(request.getContextPath() + "/home");
 			LogUtils.logInfo("(LoginServlet do Post()) - successful authorization user: " + user.getLogin());
